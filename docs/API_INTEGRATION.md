@@ -21,3 +21,12 @@ Pending with a configured key:
 - `GET /api/v1/products?pageSize=5`
 - product detail, barcode, compare
 - brand and ingredient endpoints
+
+## Native iOS
+
+The iOS app reads:
+
+- `PETFOOD_API_BASE_URL`
+- `PETFOOD_API_KEY`
+
+from Xcode build settings via `ios/Config/Secrets.xcconfig`. The key is injected into generated app Info.plist for simulator development only. This is not a production/TestFlight authentication model.

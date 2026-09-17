@@ -1,6 +1,9 @@
-# PetFood Intelligence Consumer App
+# PetFood Intelligence Consumer Apps
 
-Mobile-first Next.js consumer frontend for the existing PetFood Intelligence API.
+Consumer frontends for the existing PetFood Intelligence API.
+
+- `src/`: Next.js web frontend
+- `ios/`: native SwiftUI iPhone application
 
 ## Local Setup
 
@@ -21,6 +24,12 @@ npm run lint
 npm test
 npm run build
 ```
+
+## iOS
+
+Open `ios/PetFoodIntelligence.xcodeproj` in Xcode. Copy `ios/Config/Secrets.example.xcconfig` to `ios/Config/Secrets.xcconfig` and set the development API key. The checked-in `Secrets.xcconfig` placeholder is ignored by Git once local changes are made.
+
+Simulator builds use `http://127.0.0.1:5081` through the Mac SSH tunnel. A physical iPhone cannot use the Mac's `127.0.0.1`; configure a device-reachable development API URL without exposing the remote API insecurely.
 
 ## Routes
 
