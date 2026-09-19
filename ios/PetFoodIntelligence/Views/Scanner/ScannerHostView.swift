@@ -50,6 +50,7 @@ struct ScannerHostView: View {
         }
     }
 
+    @MainActor
     private func lookup(_ raw: String) async {
         let barcode = raw.normalizedBarcode
         guard !barcode.isEmpty, !isLookingUp else { return }
