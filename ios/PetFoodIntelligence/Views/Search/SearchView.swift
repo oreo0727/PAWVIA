@@ -11,10 +11,13 @@ struct SearchView: View {
         List {
             if products.isEmpty, !isLoading {
                 ContentUnavailableView("Search pet foods", systemImage: "magnifyingglass", description: Text("Search by product, brand, or ingredient."))
+                    .listRowBackground(AppTheme.cream)
             }
-            ForEach(products) { ProductCardView(product: $0).listRowSeparator(.hidden) }
+            ForEach(products) { ProductCardView(product: $0).listRowSeparator(.hidden).listRowBackground(AppTheme.cream) }
         }
         .listStyle(.plain)
+        .scrollContentBackground(.hidden)
+        .background(AppTheme.cream)
         .navigationTitle("Search")
         .searchable(text: $query, prompt: "Food, brand, ingredient")
         .navigationDestination(for: String.self) { ProductSnapshotView(productID: $0) }

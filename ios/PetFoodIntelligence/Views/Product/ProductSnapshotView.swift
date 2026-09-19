@@ -11,27 +11,53 @@ struct ProductSnapshotView: View {
         AsyncStateView(isLoading: isLoading, error: error) {
             if let product {
                 ScrollView {
-                    VStack(alignment: .leading, spacing: 22) {
-                        ProductImageView(url: product.imageURL)
-                            .frame(height: 240)
-                        VStack(alignment: .leading, spacing: 8) {
-                            Text(product.brandName ?? "Unknown brand")
-                                .font(.headline)
-                                .foregroundStyle(.secondary)
-                            Text(product.name ?? "Unnamed food")
-                                .font(.largeTitle.bold())
-                            Text([product.species, product.foodForm].compactMap { $0 }.joined(separator: " / "))
-                                .foregroundStyle(.secondary)
-                            ConfidenceBadge(status: product.verificationStatus)
+                    VStack(alignment: .leading, spacing: 20) {
+                        VStack(spacing: 18) {
+                            ProductImageView(url: product.imageURL)
+                                .frame(height: 220)
+                                .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
+                            HStack(alignment: .center, spacing: 18) {
+                                ProductScoreBadge(score: product.completenessScore, size: 92)
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text(product.brandName ?? "Unknown brand")
+                                        .font(.headline)
+                                        .foregroundStyle(.secondary)
+                                    Text(product.name ?? "Unnamed food")
+                                        .font(.title.bold())
+                                        .foregroundStyle(AppTheme.ink)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                    Text([product.species, product.foodForm].compactMap { $0 }.joined(separator: " / "))
+                                        .foregroundStyle(.secondary)
+                                    ConfidenceBadge(status: product.verificationStatus)
+                                }
+                                Spacer(minLength: 0)
+                            }
                         }
+                        .padding()
+                        .background(.white, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
                         ProductActions(product: product)
                         FoodSnapshotGrid(nutrition: product.nutrition)
                         DryMatterCard(nutrition: product.nutrition)
                         TopIngredientsView(product: product)
-                        NavigationLink("Nutrition details") { NutritionDetailView(product: product) }
+                        NavigationLink {
+                            NutritionDetailView(product: product)
+                        } label: {
+                            HStack {
+                                Text("Nutrition details")
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .font(.caption.bold())
+                            }
+                            .font(.headline)
+                            .foregroundStyle(AppTheme.orange)
+                            .padding()
+                            .background(.white, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                        }
+                        .buttonStyle(.plain)
                     }
                     .padding()
                 }
+                .background(AppTheme.cream)
             }
         }
         .navigationTitle("Food Snapshot")
@@ -68,7 +94,9 @@ struct ProductActions: View {
                 Label("Compare", systemImage: "rectangle.split.3x1")
             }
         }
+        .font(.headline)
         .buttonStyle(.bordered)
+        .controlSize(.large)
     }
 }
 
@@ -95,10 +123,15 @@ struct SnapshotValue: View {
             Text(title).font(.subheadline).foregroundStyle(.secondary)
             Text(value.map { "\($0.formatted())%" } ?? "Not available")
                 .font(.title3.bold())
+                .foregroundStyle(AppTheme.ink)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 20, style: .continuous))
+        .background(.white, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: 16, style: .continuous)
+                .stroke(AppTheme.softLine)
+        }
     }
 }
 
@@ -108,7 +141,7 @@ struct DryMatterCard: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text("Compare on Dry Matter").font(.title3.bold())
-                Text("Calculated").font(.caption.bold()).padding(6).background(.teal.opacity(0.15), in: Capsule())
+                Text("Calculated").font(.caption.bold()).padding(6).background(AppTheme.orange.opacity(0.15), in: Capsule())
             }
             Text("Dry matter removes moisture from the calculation so foods with different moisture levels are easier to compare.")
                 .font(.footnote)
@@ -117,6 +150,8 @@ struct DryMatterCard: View {
             SnapshotValue(title: "Fat", value: nutrition?.dryMatterFat)
             SnapshotValue(title: "Fiber", value: nutrition?.dryMatterFiber)
         }
+        .padding()
+        .background(.white, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
 }
 
@@ -130,10 +165,21 @@ struct TopIngredientsView: View {
                 Text(product.ingredientText ?? "Not available").foregroundStyle(.secondary)
             } else {
                 ForEach(Array(ingredients.enumerated()), id: \.offset) { index, ingredient in
-                    Text("\(index + 1). \(ingredient)")
+                    HStack(alignment: .top, spacing: 10) {
+                        Text("\(index + 1)")
+                            .font(.caption.bold())
+                            .foregroundStyle(.white)
+                            .frame(width: 24, height: 24)
+                            .background(AppTheme.orange, in: Circle())
+                        Text(ingredient)
+                            .font(.body)
+                            .foregroundStyle(AppTheme.ink)
+                    }
                 }
             }
             NavigationLink("See all ingredients") { IngredientsListView(product: product) }
         }
+        .padding()
+        .background(.white, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
     }
 }

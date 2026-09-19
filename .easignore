@@ -1,0 +1,13 @@
+.git
+node_modules
+.next
+out
+coverage
+build
+ios/build
+DerivedData
+.env
+.env.local
+.env.*.local
+*.xcuserstate
+*.xcuserdata

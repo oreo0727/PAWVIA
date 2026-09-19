@@ -37,8 +37,8 @@ struct ConfidenceBadge: View {
     private var tint: Color {
         switch status {
         case .packageVerified: .blue
-        case .manufacturerVerified: .teal
-        default: .orange
+        case .manufacturerVerified: AppTheme.scoreColor(78)
+        default: AppTheme.orange
         }
     }
 }

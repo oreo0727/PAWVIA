@@ -18,12 +18,19 @@ struct ProductCardView: View {
                     Text([product.species, product.foodForm].compactMap { $0 }.joined(separator: " / "))
                         .font(.caption)
                         .foregroundStyle(.secondary)
+                    Text(AppTheme.scoreLabel(product.completenessScore))
+                        .font(.caption.weight(.bold))
+                        .foregroundStyle(AppTheme.scoreColor(product.completenessScore))
                 }
                 Spacer()
-                ConfidenceBadge(status: product.verificationStatus)
+                ProductScoreBadge(score: product.completenessScore, size: 54)
             }
             .padding()
-            .background(.thinMaterial, in: RoundedRectangle(cornerRadius: 22, style: .continuous))
+            .background(.white, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 18, style: .continuous)
+                    .stroke(AppTheme.softLine)
+            }
         }
         .buttonStyle(.plain)
     }
@@ -51,10 +58,10 @@ struct ProductImageView: View {
     private var placeholder: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(.teal.opacity(0.12))
+                .fill(AppTheme.orange.opacity(0.10))
             Image(systemName: "pawprint")
                 .font(.title2)
-                .foregroundStyle(.teal)
+                .foregroundStyle(AppTheme.orange)
         }
     }
 }

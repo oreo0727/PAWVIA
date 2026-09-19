@@ -1,0 +1,5 @@
+platform :ios, '18.0'
+
+target 'PetFoodIntelligence' do
+  use_frameworks!
+end

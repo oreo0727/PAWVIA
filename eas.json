@@ -2,6 +2,15 @@
   "cli": {
     "version": ">= 23.2.0"
   },
+  "build": {
+    "production": {
+      "ios": {
+        "buildConfiguration": "Release",
+        "distribution": "store",
+        "scheme": "PetFoodIntelligence"
+      }
+    }
+  },
   "submit": {
     "production": {
       "ios": {

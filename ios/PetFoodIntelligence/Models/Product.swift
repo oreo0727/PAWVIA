@@ -14,12 +14,13 @@ struct Product: Codable, Identifiable, Hashable {
     let nutrition: Nutrition?
     let calories: String?
     let nutritionalAdequacy: String?
+    let completenessScore: Int?
 
     enum CodingKeys: String, CodingKey {
         case id, productId, name, productName, title, brandName, brand, species, foodForm, form
         case imageURL, imageUrl, image, barcode, upc, ean, gtin
         case verificationStatus, sourceStatus, ingredientText, ingredientsText, ingredients
-        case nutrition, guaranteedAnalysis, calories, kcal, nutritionalAdequacy, aafcoStatement
+        case nutrition, guaranteedAnalysis, calories, kcal, nutritionalAdequacy, aafcoStatement, completenessScore
     }
 
     init(from decoder: Decoder) throws {
@@ -41,6 +42,7 @@ struct Product: Codable, Identifiable, Hashable {
         nutrition = (try? c.decode(Nutrition.self, forKey: .nutrition)) ?? (try? c.decode(Nutrition.self, forKey: .guaranteedAnalysis)) ?? Nutrition(fromProduct: c)
         calories = try c.decodeFirstString(keys: [.calories, .kcal])
         nutritionalAdequacy = try c.decodeFirstString(keys: [.nutritionalAdequacy, .aafcoStatement])
+        completenessScore = (try c.decodeFirstDouble(keys: [.completenessScore])).map(Int.init)
     }
 
     init(id: String, name: String, brandName: String? = nil) {
@@ -57,6 +59,7 @@ struct Product: Codable, Identifiable, Hashable {
         self.nutrition = nil
         self.calories = nil
         self.nutritionalAdequacy = nil
+        self.completenessScore = nil
     }
 
     func encode(to encoder: Encoder) throws {}

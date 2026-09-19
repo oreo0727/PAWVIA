@@ -38,6 +38,7 @@ ios/Config/Secrets.xcconfig
 
 # Xcode
 DerivedData/
+ios/build/
 *.xcuserstate
 *.xcuserdata/
 

@@ -8,7 +8,7 @@ struct PetFoodIntelligenceApp: App {
         WindowGroup {
             RootTabView()
                 .environment(appModel)
-                .tint(.teal)
+                .tint(AppTheme.orange)
         }
     }
 }
