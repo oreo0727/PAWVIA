@@ -19,7 +19,7 @@ struct PetFoodAPIClient {
 
     init(transport: URLSessionTransport) {
         self.health = { try await transport.get("/health") }
-        self.products = { query in try await transport.get("/api/v1/products", query: query.parameters) }
+        self.products = { query in try await transport.getList("/api/v1/products", query: query.parameters) }
         self.product = { id in try await transport.get("/api/v1/products/\(id)") }
         self.productByBarcode = { barcode in try await transport.get("/api/v1/products/barcode/\(barcode.normalizedBarcode)") }
         self.compare = { ids in try await transport.get("/api/v1/products/compare", query: ["ids": ids.joined(separator: ",")]) }
