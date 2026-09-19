@@ -7,6 +7,10 @@ struct SearchView: View {
     @State private var isLoading = false
     @State private var error: Error?
 
+    init(initialQuery: String = "") {
+        _query = State(initialValue: initialQuery)
+    }
+
     var body: some View {
         ScrollView {
             LazyVStack(spacing: 14) {
