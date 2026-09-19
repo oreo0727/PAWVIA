@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "eas-build-pre-install": "scripts/create-ios-secrets-xcconfig.sh",
     "start": "next start",
     "lint": "eslint",
     "test": "vitest run"

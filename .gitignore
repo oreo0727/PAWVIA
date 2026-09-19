@@ -39,6 +39,9 @@ ios/Config/Secrets.xcconfig
 # Xcode
 DerivedData/
 ios/build/
+ios/Pods/
+ios/Podfile.lock
+ios/*.xcworkspace/
 *.xcuserstate
 *.xcuserdata/
 

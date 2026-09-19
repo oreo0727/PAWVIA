@@ -5,6 +5,9 @@ out
 coverage
 build
 ios/build
+ios/Pods
+ios/Podfile.lock
+ios/*.xcworkspace
 DerivedData
 .env
 .env.local
