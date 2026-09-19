@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>method</key>
+	<string>app-store-connect</string>
+	<key>destination</key>
+	<string>export</string>
+	<key>signingStyle</key>
+	<string>manual</string>
+	<key>signingCertificate</key>
+	<string>57DDD08EF3FF775E34887B41EE761A4718AE8DC1</string>
+	<key>provisioningProfiles</key>
+	<dict>
+		<key>com.jamesbaugh.petfoodintelligence</key>
+		<string>PetFood Intelligence App Store</string>
+	</dict>
+	<key>teamID</key>
+	<string>CXFPR6N64M</string>
+	<key>stripSwiftSymbols</key>
+	<true/>
+	<key>uploadSymbols</key>
+	<true/>
+</dict>
+</plist>
