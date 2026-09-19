@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "PetFood Intelligence",
+    "slug": "petfood-intelligence",
+    "version": "1.0.0",
+    "ios": {
+      "bundleIdentifier": "com.jamesbaugh.petfoodintelligence"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "33ad07fd-a8b5-4f64-9046-a9f7148417c5"
+      }
+    }
+  }
+}

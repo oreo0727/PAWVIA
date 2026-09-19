@@ -139,6 +139,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PetFood;
+				INFOPLIST_KEY_CFBundleIconName = AppIcon;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan pet food barcodes to look up ingredients and nutrition.";
 				INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsLocalNetworking = YES;
 				INFOPLIST_KEY_PETFOOD_API_BASE_URL = "$(PETFOOD_API_BASE_URL)";
@@ -161,6 +162,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_CFBundleDisplayName = PetFood;
+				INFOPLIST_KEY_CFBundleIconName = AppIcon;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Scan pet food barcodes to look up ingredients and nutrition.";
 				INFOPLIST_KEY_NSAppTransportSecurity_NSAllowsLocalNetworking = YES;
 				INFOPLIST_KEY_PETFOOD_API_BASE_URL = "$(PETFOOD_API_BASE_URL)";

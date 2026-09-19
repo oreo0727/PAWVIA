@@ -1,0 +1,13 @@
+{
+  "cli": {
+    "version": ">= 23.2.0"
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "ascAppId": "6813965270",
+        "bundleIdentifier": "com.jamesbaugh.petfoodintelligence"
+      }
+    }
+  }
+}
