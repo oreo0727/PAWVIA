@@ -18,7 +18,7 @@ struct ConfidenceBadge: View {
         .sheet(isPresented: $showingDetail) {
             NavigationStack {
                 List {
-                    Section("Data confidence") {
+                    Section("Manufacturer Verification") {
                         Text("Package Verified: information checked against a physical package label.")
                         Text("Manufacturer Verified: information checked against manufacturer information.")
                         Text("Community Data: information currently comes from community/open sources and has not yet been manufacturer verified.")
@@ -27,7 +27,7 @@ struct ConfidenceBadge: View {
                         Text("This is about confidence in our data. It is not a judgment about the food.")
                     }
                 }
-                .navigationTitle("Data Confidence")
+                .navigationTitle("Verification")
                 .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showingDetail = false } } }
             }
             .presentationDetents([.medium, .large])

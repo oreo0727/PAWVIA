@@ -8,23 +8,22 @@ struct HomeView: View {
             VStack(alignment: .leading, spacing: 24) {
                 VStack(alignment: .leading, spacing: 14) {
                     HStack {
+                        BrandMark()
                         Spacer()
                         BrandDogView(size: 108)
                     }
                     .padding(.bottom, 2)
 
-                    Label("Happy Healthy Together", systemImage: "pawprint.fill")
-                        .font(.caption.bold())
-                        .foregroundStyle(AppTheme.primary)
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 8)
-                        .background(AppTheme.surface, in: Capsule())
+                    HStack(spacing: 8) {
+                        SignalPill(text: "LIVE LABEL SCAN", icon: "dot.radiowaves.left.and.right")
+                        SignalPill(text: "PET-SAFE DATA", icon: "checkmark.shield.fill")
+                    }
 
                     Text("Know What's in Their Bowl.")
                         .font(.system(size: 42, weight: .black, design: .rounded))
                         .foregroundStyle(AppTheme.ink)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text("Scan. Learn. Compare. For a healthier tomorrow.")
+                    Text("Scan ingredients, nutrition, recalls, and verification before it reaches their bowl.")
                         .font(.callout.weight(.medium))
                         .foregroundStyle(AppTheme.muted)
                         .fixedSize(horizontal: false, vertical: true)
@@ -40,14 +39,40 @@ struct HomeView: View {
                 NavigationLink {
                     ScannerHostView()
                 } label: {
-                    Label("Scan a product", systemImage: "barcode.viewfinder")
-                        .font(.title2.bold())
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 20)
+                    HStack(spacing: 14) {
+                        Image(systemName: "barcode.viewfinder")
+                            .font(.title2.weight(.black))
+                        VStack(alignment: .leading, spacing: 2) {
+                            Text("Scan a product")
+                                .font(.system(.title3, design: .rounded).weight(.black))
+                            Text("Open the bowl intelligence lens")
+                                .font(.system(.caption, design: .monospaced).weight(.bold))
+                                .opacity(0.82)
+                        }
+                        Spacer()
+                        Image(systemName: "arrow.up.right")
+                            .font(.headline.weight(.black))
+                    }
+                    .padding(.horizontal, 18)
+                    .padding(.vertical, 18)
+                    .frame(maxWidth: .infinity)
                 }
                 .buttonStyle(.plain)
                 .foregroundStyle(.white)
-                .background(AppTheme.primary, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .background(
+                    LinearGradient(
+                        colors: [AppTheme.primary, Color(red: 0.10, green: 0.38, blue: 0.18)],
+                        startPoint: .topLeading,
+                        endPoint: .bottomTrailing
+                    ),
+                    in: RoundedRectangle(cornerRadius: 18, style: .continuous)
+                )
+                .overlay(alignment: .top) {
+                    Rectangle()
+                        .fill(AppTheme.glow.opacity(0.36))
+                        .frame(height: 1)
+                        .padding(.horizontal, 18)
+                }
                 .shadow(color: AppTheme.primary.opacity(0.18), radius: 18, y: 10)
 
                 NavigationLink {
@@ -67,7 +92,9 @@ struct HomeView: View {
                 }
                 .buttonStyle(.plain)
 
-                SectionHeader("Recent Scans")
+                PawviaFeatureGrid()
+
+                SectionHeader("Food History")
                 if model.historyStore.items.isEmpty {
                     VStack(spacing: 12) {
                         Image(systemName: "clock.arrow.circlepath")
@@ -94,6 +121,45 @@ struct HomeView: View {
         }
         .background(AppTheme.backgroundGradient)
         .navigationDestination(for: String.self) { ProductSnapshotView(productID: $0) }
+    }
+}
+
+private struct PawviaFeatureGrid: View {
+    private let features: [(String, String)] = [
+        ("Scan", "barcode.viewfinder"),
+        ("Ingredients", "leaf.fill"),
+        ("Nutrition", "chart.bar.fill"),
+        ("Compare", "rectangle.split.3x1.fill"),
+        ("Pets", "pawprint.fill"),
+        ("Favorites", "heart.fill"),
+        ("Food History", "clock.arrow.circlepath"),
+        ("Recalls", "exclamationmark.shield.fill"),
+        ("Manufacturer Verification", "checkmark.seal.fill")
+    ]
+
+    var body: some View {
+        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
+            ForEach(features, id: \.0) { feature in
+                HStack(spacing: 8) {
+                    Image(systemName: feature.1)
+                        .font(.caption.weight(.black))
+                        .foregroundStyle(AppTheme.primary)
+                        .frame(width: 24, height: 24)
+                        .background(AppTheme.techMint.opacity(0.86), in: Circle())
+                    Text(feature.0)
+                        .font(.system(.caption, design: .rounded).weight(.heavy))
+                        .foregroundStyle(AppTheme.ink)
+                        .lineLimit(2)
+                    Spacer(minLength: 0)
+                }
+                .padding(10)
+                .background(AppTheme.elevated.opacity(0.86), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+                .overlay {
+                    RoundedRectangle(cornerRadius: 14, style: .continuous)
+                        .stroke(AppTheme.softLine)
+                }
+            }
+        }
     }
 }
 

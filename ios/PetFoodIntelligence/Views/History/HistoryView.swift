@@ -6,7 +6,7 @@ struct HistoryView: View {
     var body: some View {
         List {
             if model.historyStore.items.isEmpty {
-                ContentUnavailableView("Your scans will appear here.", systemImage: "clock.arrow.circlepath")
+                ContentUnavailableView("Your food history will appear here.", systemImage: "clock.arrow.circlepath")
                     .foregroundStyle(AppTheme.ink)
                     .listRowBackground(AppTheme.cream)
             }
@@ -26,7 +26,7 @@ struct HistoryView: View {
         }
         .scrollContentBackground(.hidden)
         .background(AppTheme.backgroundGradient)
-        .navigationTitle("History")
+        .navigationTitle("Food History")
         .navigationDestination(for: String.self) { ProductSnapshotView(productID: $0) }
     }
 }

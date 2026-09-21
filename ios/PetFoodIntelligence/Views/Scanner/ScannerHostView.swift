@@ -11,6 +11,12 @@ struct ScannerHostView: View {
 
     var body: some View {
         VStack(spacing: 18) {
+            HStack {
+                BrandMark()
+                Spacer()
+                SignalPill(text: "PAWVIA SCAN", icon: "viewfinder")
+            }
+
             ZStack {
                 BarcodeScannerView(isScanning: !isLookingUp) { code in
                     Task { await lookup(code) }
@@ -19,6 +25,15 @@ struct ScannerHostView: View {
                     .stroke(AppTheme.orange.opacity(0.92), lineWidth: 3)
                     .frame(width: 260, height: 170)
                     .shadow(color: AppTheme.orange.opacity(0.55), radius: 12)
+                VStack {
+                    Spacer()
+                    HStack {
+                        SignalPill(text: "ALIGN BARCODE", icon: "barcode")
+                        Spacer()
+                        SignalPill(text: "VERIFY DATA", icon: "bolt.fill")
+                    }
+                    .padding()
+                }
                 if isLookingUp {
                     ProgressView("Looking up food...")
                         .padding()
@@ -31,8 +46,11 @@ struct ScannerHostView: View {
 
             VStack(alignment: .leading, spacing: 12) {
                 Text("Manual Barcode Entry")
-                    .font(.headline)
+                    .font(.system(.headline, design: .rounded).weight(.black))
                     .foregroundStyle(AppTheme.ink)
+                Text("Use this when packaging glare or curved labels block the PAWVIA lens.")
+                    .font(.system(.caption, design: .rounded).weight(.semibold))
+                    .foregroundStyle(AppTheme.muted)
                 HStack {
                     TextField("UPC / EAN / GTIN", text: $manualBarcode)
                         .keyboardType(.numberPad)

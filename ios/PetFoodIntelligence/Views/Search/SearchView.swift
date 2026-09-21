@@ -85,6 +85,8 @@ private struct SearchStarterView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
             HStack {
+                BrandMark(compact: true)
+                SignalPill(text: "PAWVIA INDEX", icon: "waveform.path.ecg")
                 Spacer()
                 BrandDogView(size: 74)
             }
@@ -95,12 +97,12 @@ private struct SearchStarterView: View {
                     .foregroundStyle(AppTheme.primary)
 
                 Text("Find Their Next Bowl")
-                    .font(.system(size: 30, weight: .heavy, design: .rounded))
+                    .font(.system(size: 31, weight: .black, design: .rounded))
                     .foregroundStyle(AppTheme.ink)
                     .fixedSize(horizontal: false, vertical: true)
 
-                Text("Search by product, brand, ingredient, or life stage before you buy.")
-                    .font(.body)
+                Text("Search foods by brand, ingredient, nutrition, or verification status.")
+                    .font(.system(.body, design: .rounded).weight(.semibold))
                     .foregroundStyle(AppTheme.muted)
                     .fixedSize(horizontal: false, vertical: true)
             }
@@ -127,15 +129,15 @@ private struct SearchHintRow: View {
             Image(systemName: icon)
                 .font(.headline)
                 .foregroundStyle(AppTheme.primary)
-                .frame(width: 30, height: 30)
-                .background(AppTheme.secondary.opacity(0.16), in: Circle())
+                .frame(width: 34, height: 34)
+                .background(AppTheme.techMint, in: Circle())
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
-                    .font(.subheadline.weight(.bold))
+                    .font(.system(.subheadline, design: .rounded).weight(.heavy))
                     .foregroundStyle(AppTheme.ink)
                 Text(detail)
-                    .font(.caption)
+                    .font(.system(.caption, design: .rounded).weight(.semibold))
                     .foregroundStyle(AppTheme.muted)
                     .lineLimit(2)
                     .fixedSize(horizontal: false, vertical: true)
@@ -143,6 +145,8 @@ private struct SearchHintRow: View {
 
             Spacer(minLength: 0)
         }
+        .padding(10)
+        .background(AppTheme.surface.opacity(0.78), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
     }
 }
 
@@ -152,7 +156,7 @@ private struct SearchLoadingView: View {
             ProgressView()
                 .controlSize(.large)
             Text("Searching foods")
-                .font(.headline)
+                .font(.system(.headline, design: .rounded).weight(.bold))
                 .foregroundStyle(AppTheme.muted)
         }
         .frame(maxWidth: .infinity)

@@ -6,9 +6,12 @@ enum AppTheme {
     static let orange = Color(red: 1.00, green: 0.54, blue: 0.24)
     static let cream = Color(red: 0.98, green: 0.98, blue: 0.97)
     static let ink = Color(red: 0.12, green: 0.16, blue: 0.22)
-    static let muted = Color(red: 0.42, green: 0.45, blue: 0.50)
-    static let surface = Color(red: 0.95, green: 0.96, blue: 0.95)
+    static let muted = Color(red: 0.28, green: 0.33, blue: 0.38)
+    static let surface = Color(red: 0.93, green: 0.96, blue: 0.93)
     static let elevated = Color.white
+    static let techMint = Color(red: 0.78, green: 0.96, blue: 0.84)
+    static let scanLine = Color(red: 0.18, green: 0.49, blue: 0.20).opacity(0.18)
+    static let glow = Color(red: 0.37, green: 0.86, blue: 0.50)
     static let violet = Color(red: 0.99, green: 0.89, blue: 0.89)
     static let signal = primary
     static let alert = Color(red: 0.85, green: 0.21, blue: 0.31)
@@ -42,6 +45,58 @@ enum AppTheme {
         case 25..<50: return "Limited"
         default: return "Sparse"
         }
+    }
+}
+
+struct BrandMark: View {
+    var compact = false
+
+    var body: some View {
+        HStack(spacing: compact ? 8 : 10) {
+            ZStack {
+                RoundedRectangle(cornerRadius: compact ? 10 : 12, style: .continuous)
+                    .fill(AppTheme.primary)
+                Image(systemName: "pawprint.fill")
+                    .font(.system(size: compact ? 14 : 18, weight: .black))
+                    .foregroundStyle(.white)
+            }
+            .frame(width: compact ? 30 : 38, height: compact ? 30 : 38)
+            .overlay(alignment: .topTrailing) {
+                Circle()
+                    .fill(AppTheme.orange)
+                    .frame(width: compact ? 8 : 10, height: compact ? 8 : 10)
+                    .offset(x: 2, y: -2)
+            }
+
+            if !compact {
+                VStack(alignment: .leading, spacing: 0) {
+                    Text("PAWVIA")
+                        .font(.system(.headline, design: .rounded).weight(.black))
+                    Text("BOWL INTEL")
+                        .font(.system(.caption2, design: .monospaced).weight(.bold))
+                        .foregroundStyle(AppTheme.muted)
+                }
+                .foregroundStyle(AppTheme.ink)
+            }
+        }
+        .accessibilityLabel("PAWVIA Bowl Intel")
+    }
+}
+
+struct SignalPill: View {
+    let text: String
+    let icon: String
+
+    var body: some View {
+        Label(text, systemImage: icon)
+            .font(.system(.caption, design: .monospaced).weight(.bold))
+            .foregroundStyle(AppTheme.primary)
+            .padding(.horizontal, 11)
+            .padding(.vertical, 7)
+            .background(AppTheme.techMint.opacity(0.72), in: Capsule())
+            .overlay {
+                Capsule().stroke(AppTheme.primary.opacity(0.14))
+            }
     }
 }
 
@@ -84,7 +139,13 @@ struct FuturisticCard: ViewModifier {
                 RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
                     .stroke(AppTheme.softLine)
             }
-            .shadow(color: AppTheme.primary.opacity(0.08), radius: 18, y: 10)
+            .overlay(alignment: .top) {
+                Rectangle()
+                    .fill(AppTheme.scanLine)
+                    .frame(height: 1)
+                    .padding(.horizontal, 18)
+            }
+            .shadow(color: AppTheme.primary.opacity(0.12), radius: 18, y: 10)
     }
 }
 

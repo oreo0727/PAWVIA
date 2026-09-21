@@ -13,10 +13,13 @@ struct RootTabView: View {
                 .tabItem { Label("Scan", systemImage: "barcode.viewfinder") }
 
             NavigationStack { HistoryView() }
-                .tabItem { Label("History", systemImage: "clock.arrow.circlepath") }
+                .tabItem { Label("Food History", systemImage: "clock.arrow.circlepath") }
 
             NavigationStack { CompareView() }
                 .tabItem { Label("Compare", systemImage: "rectangle.split.3x1") }
         }
+        .tint(AppTheme.primary)
+        .toolbarBackground(AppTheme.cream.opacity(0.92), for: .tabBar)
+        .toolbarBackground(.visible, for: .tabBar)
     }
 }

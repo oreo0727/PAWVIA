@@ -43,7 +43,7 @@ struct ProductSnapshotView: View {
                             NutritionDetailView(product: product)
                         } label: {
                             HStack {
-                                Text("Nutrition details")
+                                Text("Nutrition")
                                 Spacer()
                                 Image(systemName: "chevron.right")
                                     .font(.caption.bold())
@@ -104,7 +104,7 @@ struct FoodSnapshotGrid: View {
     let nutrition: Nutrition?
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Food Snapshot").font(.title2.bold()).foregroundStyle(AppTheme.ink)
+            Text("PAWVIA Snapshot").font(.title2.bold()).foregroundStyle(AppTheme.ink)
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                 SnapshotValue(title: "Protein", value: nutrition?.protein)
                 SnapshotValue(title: "Fat", value: nutrition?.fat)
@@ -156,7 +156,7 @@ struct TopIngredientsView: View {
     let product: Product
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Top Ingredients").font(.title2.bold()).foregroundStyle(AppTheme.ink)
+            Text("Ingredients").font(.title2.bold()).foregroundStyle(AppTheme.ink)
             let ingredients = product.ingredients?.prefix(5).map { $0.name ?? $0.sourceText ?? "Unnamed ingredient" } ?? []
             if ingredients.isEmpty {
                 Text(product.ingredientText ?? "Not available").foregroundStyle(AppTheme.muted)
