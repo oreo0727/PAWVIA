@@ -11,13 +11,15 @@ struct ProductCardView: View {
                 VStack(alignment: .leading, spacing: 5) {
                     Text(product.brandName ?? "Unknown brand")
                         .font(.subheadline)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(AppTheme.muted)
                     Text(product.name ?? "Unnamed food")
                         .font(.headline)
-                        .foregroundStyle(.primary)
+                        .foregroundStyle(AppTheme.ink)
+                        .lineLimit(3)
+                        .fixedSize(horizontal: false, vertical: true)
                     Text([product.species, product.foodForm].compactMap { $0 }.joined(separator: " / "))
                         .font(.caption)
-                        .foregroundStyle(.secondary)
+                        .foregroundStyle(AppTheme.muted)
                     Text(AppTheme.scoreLabel(product.completenessScore))
                         .font(.caption.weight(.bold))
                         .foregroundStyle(AppTheme.scoreColor(product.completenessScore))
@@ -26,11 +28,7 @@ struct ProductCardView: View {
                 ProductScoreBadge(score: product.completenessScore, size: 54)
             }
             .padding()
-            .background(.white, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-            .overlay {
-                RoundedRectangle(cornerRadius: 18, style: .continuous)
-                    .stroke(AppTheme.softLine)
-            }
+            .futuristicCard()
         }
         .buttonStyle(.plain)
     }
@@ -58,7 +56,7 @@ struct ProductImageView: View {
     private var placeholder: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .fill(AppTheme.orange.opacity(0.10))
+                .fill(AppTheme.elevated)
             Image(systemName: "pawprint")
                 .font(.title2)
                 .foregroundStyle(AppTheme.orange)

@@ -21,20 +21,20 @@ struct ProductSnapshotView: View {
                                 VStack(alignment: .leading, spacing: 8) {
                                     Text(product.brandName ?? "Unknown brand")
                                         .font(.headline)
-                                        .foregroundStyle(.secondary)
+                                        .foregroundStyle(AppTheme.muted)
                                     Text(product.name ?? "Unnamed food")
                                         .font(.title.bold())
                                         .foregroundStyle(AppTheme.ink)
                                         .fixedSize(horizontal: false, vertical: true)
                                     Text([product.species, product.foodForm].compactMap { $0 }.joined(separator: " / "))
-                                        .foregroundStyle(.secondary)
+                                        .foregroundStyle(AppTheme.muted)
                                     ConfidenceBadge(status: product.verificationStatus)
                                 }
                                 Spacer(minLength: 0)
                             }
                         }
                         .padding()
-                        .background(.white, in: RoundedRectangle(cornerRadius: 24, style: .continuous))
+                        .futuristicCard(cornerRadius: 24)
                         ProductActions(product: product)
                         FoodSnapshotGrid(nutrition: product.nutrition)
                         DryMatterCard(nutrition: product.nutrition)
@@ -49,15 +49,15 @@ struct ProductSnapshotView: View {
                                     .font(.caption.bold())
                             }
                             .font(.headline)
-                            .foregroundStyle(AppTheme.orange)
+                            .foregroundStyle(AppTheme.primary)
                             .padding()
-                            .background(.white, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+                            .futuristicCard(cornerRadius: 16)
                         }
                         .buttonStyle(.plain)
                     }
                     .padding()
                 }
-                .background(AppTheme.cream)
+                .background(AppTheme.backgroundGradient)
             }
         }
         .navigationTitle("Food Snapshot")
@@ -104,7 +104,7 @@ struct FoodSnapshotGrid: View {
     let nutrition: Nutrition?
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Food Snapshot").font(.title2.bold())
+            Text("Food Snapshot").font(.title2.bold()).foregroundStyle(AppTheme.ink)
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 12) {
                 SnapshotValue(title: "Protein", value: nutrition?.protein)
                 SnapshotValue(title: "Fat", value: nutrition?.fat)
@@ -120,18 +120,14 @@ struct SnapshotValue: View {
     let value: Double?
     var body: some View {
         VStack(alignment: .leading, spacing: 8) {
-            Text(title).font(.subheadline).foregroundStyle(.secondary)
+            Text(title).font(.subheadline).foregroundStyle(AppTheme.muted)
             Text(value.map { "\($0.formatted())%" } ?? "Not available")
                 .font(.title3.bold())
                 .foregroundStyle(AppTheme.ink)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding()
-        .background(.white, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 16, style: .continuous)
-                .stroke(AppTheme.softLine)
-        }
+        .futuristicCard(cornerRadius: 16)
     }
 }
 
@@ -141,17 +137,18 @@ struct DryMatterCard: View {
         VStack(alignment: .leading, spacing: 10) {
             HStack {
                 Text("Compare on Dry Matter").font(.title3.bold())
-                Text("Calculated").font(.caption.bold()).padding(6).background(AppTheme.orange.opacity(0.15), in: Capsule())
+                    .foregroundStyle(AppTheme.ink)
+                Text("Calculated").font(.caption.bold()).padding(6).foregroundStyle(.white).background(AppTheme.primary, in: Capsule())
             }
             Text("Dry matter removes moisture from the calculation so foods with different moisture levels are easier to compare.")
                 .font(.footnote)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppTheme.muted)
             SnapshotValue(title: "Protein", value: nutrition?.dryMatterProtein)
             SnapshotValue(title: "Fat", value: nutrition?.dryMatterFat)
             SnapshotValue(title: "Fiber", value: nutrition?.dryMatterFiber)
         }
         .padding()
-        .background(.white, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .futuristicCard()
     }
 }
 
@@ -159,10 +156,10 @@ struct TopIngredientsView: View {
     let product: Product
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("Top Ingredients").font(.title2.bold())
+            Text("Top Ingredients").font(.title2.bold()).foregroundStyle(AppTheme.ink)
             let ingredients = product.ingredients?.prefix(5).map { $0.name ?? $0.sourceText ?? "Unnamed ingredient" } ?? []
             if ingredients.isEmpty {
-                Text(product.ingredientText ?? "Not available").foregroundStyle(.secondary)
+                Text(product.ingredientText ?? "Not available").foregroundStyle(AppTheme.muted)
             } else {
                 ForEach(Array(ingredients.enumerated()), id: \.offset) { index, ingredient in
                     HStack(alignment: .top, spacing: 10) {
@@ -170,7 +167,7 @@ struct TopIngredientsView: View {
                             .font(.caption.bold())
                             .foregroundStyle(.white)
                             .frame(width: 24, height: 24)
-                            .background(AppTheme.orange, in: Circle())
+                            .background(AppTheme.primary, in: Circle())
                         Text(ingredient)
                             .font(.body)
                             .foregroundStyle(AppTheme.ink)
@@ -178,8 +175,9 @@ struct TopIngredientsView: View {
                 }
             }
             NavigationLink("See all ingredients") { IngredientsListView(product: product) }
+                .foregroundStyle(AppTheme.primary)
         }
         .padding()
-        .background(.white, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+        .futuristicCard()
     }
 }

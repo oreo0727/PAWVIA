@@ -41,9 +41,9 @@ struct SearchView: View {
                 }
             }
             .padding(.horizontal, 16)
-            .padding(.bottom, 100)
+            .padding(.bottom, 150)
         }
-        .background(AppTheme.cream)
+        .background(AppTheme.backgroundGradient)
         .navigationTitle("Search")
         .navigationBarTitleDisplayMode(.large)
         .searchable(text: $query, prompt: "Food, brand, ingredient")
@@ -84,18 +84,25 @@ struct SearchView: View {
 private struct SearchStarterView: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 22) {
+            HStack {
+                Spacer()
+                BrandDogView(size: 74)
+            }
+
             VStack(alignment: .leading, spacing: 10) {
                 Image(systemName: "magnifyingglass")
                     .font(.system(size: 34, weight: .bold))
-                    .foregroundStyle(AppTheme.orange)
+                    .foregroundStyle(AppTheme.primary)
 
-                Text("Find a better food")
+                Text("Find Their Next Bowl")
                     .font(.system(size: 30, weight: .heavy, design: .rounded))
                     .foregroundStyle(AppTheme.ink)
+                    .fixedSize(horizontal: false, vertical: true)
 
-                Text("Search by product, brand, ingredient, or life stage.")
+                Text("Search by product, brand, ingredient, or life stage before you buy.")
                     .font(.body)
-                    .foregroundStyle(.secondary)
+                    .foregroundStyle(AppTheme.muted)
+                    .fixedSize(horizontal: false, vertical: true)
             }
 
             VStack(spacing: 10) {
@@ -106,11 +113,7 @@ private struct SearchStarterView: View {
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)
-        .background(.white, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-        .overlay {
-            RoundedRectangle(cornerRadius: 18, style: .continuous)
-                .stroke(AppTheme.softLine)
-        }
+        .futuristicCard()
     }
 }
 
@@ -123,9 +126,9 @@ private struct SearchHintRow: View {
         HStack(spacing: 12) {
             Image(systemName: icon)
                 .font(.headline)
-                .foregroundStyle(AppTheme.orange)
+                .foregroundStyle(AppTheme.primary)
                 .frame(width: 30, height: 30)
-                .background(AppTheme.orange.opacity(0.10), in: Circle())
+                .background(AppTheme.secondary.opacity(0.16), in: Circle())
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
@@ -133,9 +136,9 @@ private struct SearchHintRow: View {
                     .foregroundStyle(AppTheme.ink)
                 Text(detail)
                     .font(.caption)
-                    .foregroundStyle(.secondary)
-                    .lineLimit(1)
-                    .minimumScaleFactor(0.85)
+                    .foregroundStyle(AppTheme.muted)
+                    .lineLimit(2)
+                    .fixedSize(horizontal: false, vertical: true)
             }
 
             Spacer(minLength: 0)
@@ -150,7 +153,7 @@ private struct SearchLoadingView: View {
                 .controlSize(.large)
             Text("Searching foods")
                 .font(.headline)
-                .foregroundStyle(.secondary)
+                .foregroundStyle(AppTheme.muted)
         }
         .frame(maxWidth: .infinity)
     }

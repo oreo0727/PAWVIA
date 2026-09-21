@@ -5,15 +5,28 @@ struct HomeView: View {
 
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 26) {
+            VStack(alignment: .leading, spacing: 24) {
                 VStack(alignment: .leading, spacing: 14) {
-                    Text("Scan. Score. Decide.")
-                        .font(.system(size: 44, weight: .heavy, design: .rounded))
+                    HStack {
+                        Spacer()
+                        BrandDogView(size: 108)
+                    }
+                    .padding(.bottom, 2)
+
+                    Label("Happy Healthy Together", systemImage: "pawprint.fill")
+                        .font(.caption.bold())
+                        .foregroundStyle(AppTheme.primary)
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(AppTheme.surface, in: Capsule())
+
+                    Text("Know What's in Their Bowl.")
+                        .font(.system(size: 42, weight: .black, design: .rounded))
                         .foregroundStyle(AppTheme.ink)
                         .fixedSize(horizontal: false, vertical: true)
-                    Text("Instantly decode pet food labels with a simple score, ingredient snapshot, and nutrition context.")
-                        .font(.title3)
-                        .foregroundStyle(.secondary)
+                    Text("Scan. Learn. Compare. For a healthier tomorrow.")
+                        .font(.callout.weight(.medium))
+                        .foregroundStyle(AppTheme.muted)
                         .fixedSize(horizontal: false, vertical: true)
                 }
                 .padding(.top, 18)
@@ -34,8 +47,8 @@ struct HomeView: View {
                 }
                 .buttonStyle(.plain)
                 .foregroundStyle(.white)
-                .background(AppTheme.orange, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
-                .shadow(color: AppTheme.orange.opacity(0.25), radius: 16, y: 8)
+                .background(AppTheme.primary, in: RoundedRectangle(cornerRadius: 18, style: .continuous))
+                .shadow(color: AppTheme.primary.opacity(0.18), radius: 18, y: 10)
 
                 NavigationLink {
                     SearchView()
@@ -48,13 +61,9 @@ struct HomeView: View {
                             .font(.caption.bold())
                     }
                     .font(.headline)
-                    .foregroundStyle(AppTheme.orange)
+                    .foregroundStyle(AppTheme.primary)
                     .padding()
-                    .background(.white, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
-                    .overlay {
-                        RoundedRectangle(cornerRadius: 16, style: .continuous)
-                            .stroke(AppTheme.softLine)
-                    }
+                    .futuristicCard(cornerRadius: 16)
                 }
                 .buttonStyle(.plain)
 
@@ -63,12 +72,13 @@ struct HomeView: View {
                     VStack(spacing: 12) {
                         Image(systemName: "clock.arrow.circlepath")
                             .font(.system(size: 42, weight: .semibold))
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(AppTheme.muted)
                         Text("Your scans will appear here.")
                             .font(.title3.bold())
-                        Text("Start with a barcode scan while shopping or at home.")
+                            .foregroundStyle(AppTheme.ink)
+                        Text("Start with a barcode scan while shopping.")
                             .font(.body)
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(AppTheme.muted)
                             .multilineTextAlignment(.center)
                     }
                     .frame(maxWidth: .infinity)
@@ -80,9 +90,9 @@ struct HomeView: View {
                 }
             }
             .padding()
-            .padding(.bottom, 90)
+            .padding(.bottom, 150)
         }
-        .background(AppTheme.cream)
+        .background(AppTheme.backgroundGradient)
         .navigationDestination(for: String.self) { ProductSnapshotView(productID: $0) }
     }
 }
@@ -93,6 +103,7 @@ struct SectionHeader: View {
     var body: some View {
         Text(title)
             .font(.title2.bold())
+            .foregroundStyle(AppTheme.ink)
             .frame(maxWidth: .infinity, alignment: .leading)
     }
 }
@@ -104,6 +115,6 @@ private struct MiniScore: View {
         ProductScoreBadge(score: score, size: 52)
             .frame(maxWidth: .infinity)
             .padding(.vertical, 12)
-            .background(.white, in: RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .futuristicCard(cornerRadius: 16)
     }
 }

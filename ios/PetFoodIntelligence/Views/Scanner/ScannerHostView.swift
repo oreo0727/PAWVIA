@@ -16,9 +16,9 @@ struct ScannerHostView: View {
                     Task { await lookup(code) }
                 }
                 RoundedRectangle(cornerRadius: 28)
-                    .stroke(.white.opacity(0.85), lineWidth: 3)
+                    .stroke(AppTheme.orange.opacity(0.92), lineWidth: 3)
                     .frame(width: 260, height: 170)
-                    .shadow(radius: 8)
+                    .shadow(color: AppTheme.orange.opacity(0.55), radius: 12)
                 if isLookingUp {
                     ProgressView("Looking up food...")
                         .padding()
@@ -29,9 +29,10 @@ struct ScannerHostView: View {
             .frame(height: 420)
             .clipShape(RoundedRectangle(cornerRadius: 32, style: .continuous))
 
-            VStack(alignment: .leading) {
+            VStack(alignment: .leading, spacing: 12) {
                 Text("Manual Barcode Entry")
                     .font(.headline)
+                    .foregroundStyle(AppTheme.ink)
                 HStack {
                     TextField("UPC / EAN / GTIN", text: $manualBarcode)
                         .keyboardType(.numberPad)
@@ -41,8 +42,11 @@ struct ScannerHostView: View {
                         .disabled(manualBarcode.normalizedBarcode.isEmpty)
                 }
             }
+            .padding()
+            .futuristicCard()
         }
         .padding()
+        .background(AppTheme.backgroundGradient)
         .navigationTitle("Scan")
         .navigationDestination(item: $foundProductID) { ProductSnapshotView(productID: $0) }
         .navigationDestination(item: $fallbackSearch) { SearchView(initialQuery: $0.query) }
