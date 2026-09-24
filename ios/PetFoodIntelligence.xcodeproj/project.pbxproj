@@ -40,6 +40,8 @@
 		A1B2C3D4E5F6000000000040 /* ConfidenceBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F600000000001F /* ConfidenceBadge.swift */; };
 		A1B2C3D4E5F6000000000041 /* ProductCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000000000020 /* ProductCardView.swift */; };
 		A1B2C3D4E5F6000000000042 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000000000021 /* Assets.xcassets */; };
+		A1B2C3D4E5F6000000000043 /* PetStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000000000044 /* PetStore.swift */; };
+		A1B2C3D4E5F6000000000045 /* PetsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6000000000046 /* PetsView.swift */; };
 		D5AC0BC9FB2259B6AB8EF963 /* Pods_PetFoodIntelligence.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D3B7F5685C0832B4EC58C99 /* Pods_PetFoodIntelligence.framework */; };
 /* End PBXBuildFile section */
 
@@ -77,6 +79,8 @@
 		A1B2C3D4E5F600000000001F /* ConfidenceBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Shared/ConfidenceBadge.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6000000000020 /* ProductCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Shared/ProductCardView.swift; sourceTree = "<group>"; };
 		A1B2C3D4E5F6000000000021 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A1B2C3D4E5F6000000000044 /* PetStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stores/PetStore.swift; sourceTree = "<group>"; };
+		A1B2C3D4E5F6000000000046 /* PetsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Views/Pets/PetsView.swift; sourceTree = "<group>"; };
 		260170E6449DA4844C8C437B /* Pods-PetFoodIntelligence.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetFoodIntelligence.release.xcconfig"; path = "Target Support Files/Pods-PetFoodIntelligence/Pods-PetFoodIntelligence.release.xcconfig"; sourceTree = "<group>"; };
 		5D3B7F5685C0832B4EC58C99 /* Pods_PetFoodIntelligence.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetFoodIntelligence.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		60E992AD2F7B0B59A57E26A0 /* Pods-PetFoodIntelligence.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetFoodIntelligence.debug.xcconfig"; path = "Target Support Files/Pods-PetFoodIntelligence/Pods-PetFoodIntelligence.debug.xcconfig"; sourceTree = "<group>"; };
@@ -117,6 +121,7 @@
 				A1B2C3D4E5F600000000000F /* CompareStore.swift */,
 				A1B2C3D4E5F6000000000010 /* FavoritesStore.swift */,
 				A1B2C3D4E5F6000000000011 /* ScanHistoryStore.swift */,
+				A1B2C3D4E5F6000000000044 /* PetStore.swift */,
 				A1B2C3D4E5F6000000000012 /* AppTheme.swift */,
 				A1B2C3D4E5F6000000000013 /* CodingHelpers.swift */,
 				A1B2C3D4E5F6000000000014 /* CompareView.swift */,
@@ -129,6 +134,7 @@
 				A1B2C3D4E5F600000000001B /* BarcodeScannerView.swift */,
 				A1B2C3D4E5F600000000001C /* ScannerHostView.swift */,
 				A1B2C3D4E5F600000000001D /* SearchView.swift */,
+				A1B2C3D4E5F6000000000046 /* PetsView.swift */,
 				A1B2C3D4E5F600000000001E /* AsyncStateView.swift */,
 				A1B2C3D4E5F600000000001F /* ConfidenceBadge.swift */,
 				A1B2C3D4E5F6000000000020 /* ProductCardView.swift */,
@@ -309,6 +315,8 @@
 				A1B2C3D4E5F600000000003F /* AsyncStateView.swift in Sources */,
 				A1B2C3D4E5F6000000000040 /* ConfidenceBadge.swift in Sources */,
 				A1B2C3D4E5F6000000000041 /* ProductCardView.swift in Sources */,
+				A1B2C3D4E5F6000000000043 /* PetStore.swift in Sources */,
+				A1B2C3D4E5F6000000000045 /* PetsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -320,7 +328,7 @@
 			baseConfigurationReference = 8D1E9AF32C9B1000000000F0 /* Debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = CXFPR6N64M;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Info.plist;
@@ -339,14 +347,16 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 8D1E9AF32C9B100000000100 /* Release.xcconfig */;
 			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 9;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: JAMES ANTHONY BAUGH (CXFPR6N64M)";
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = CXFPR6N64M;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = Info.plist;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jamesbaugh.petfoodintelligence;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "PetFood Intelligence App Store";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

@@ -124,42 +124,120 @@ struct HomeView: View {
     }
 }
 
-private struct PawviaFeatureGrid: View {
-    private let features: [(String, String)] = [
-        ("Scan", "barcode.viewfinder"),
-        ("Ingredients", "leaf.fill"),
-        ("Nutrition", "chart.bar.fill"),
-        ("Compare", "rectangle.split.3x1.fill"),
-        ("Pets", "pawprint.fill"),
-        ("Favorites", "heart.fill"),
-        ("Food History", "clock.arrow.circlepath"),
-        ("Recalls", "exclamationmark.shield.fill"),
-        ("Manufacturer Verification", "checkmark.seal.fill")
-    ]
+private enum HomeFeature: String, CaseIterable, Identifiable {
+    case scan = "Scan"
+    case ingredients = "Ingredients"
+    case nutrition = "Nutrition"
+    case compare = "Compare"
+    case pets = "Pets"
+    case favorites = "Favorites"
+    case foodHistory = "Food History"
+    case recalls = "Recalls"
+    case manufacturerVerification = "Manufacturer Verification"
 
+    var id: String { rawValue }
+
+    var icon: String {
+        switch self {
+        case .scan: "barcode.viewfinder"
+        case .ingredients: "leaf.fill"
+        case .nutrition: "chart.bar.fill"
+        case .compare: "rectangle.split.3x1.fill"
+        case .pets: "pawprint.fill"
+        case .favorites: "heart.fill"
+        case .foodHistory: "clock.arrow.circlepath"
+        case .recalls: "exclamationmark.shield.fill"
+        case .manufacturerVerification: "checkmark.seal.fill"
+        }
+    }
+
+    var destination: HomeFeatureDestination? {
+        switch self {
+        case .scan: .scan
+        case .ingredients, .nutrition: .search
+        case .compare: .compare
+        case .foodHistory: .history
+        case .manufacturerVerification: .ingredients
+        case .pets: .pets
+        case .favorites, .recalls: nil
+        }
+    }
+}
+
+private enum HomeFeatureDestination: Hashable {
+    case scan
+    case search
+    case compare
+    case history
+    case ingredients
+    case pets
+}
+
+private struct PawviaFeatureGrid: View {
     var body: some View {
         LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 10) {
-            ForEach(features, id: \.0) { feature in
-                HStack(spacing: 8) {
-                    Image(systemName: feature.1)
-                        .font(.caption.weight(.black))
-                        .foregroundStyle(AppTheme.primary)
-                        .frame(width: 24, height: 24)
-                        .background(AppTheme.techMint.opacity(0.86), in: Circle())
-                    Text(feature.0)
-                        .font(.system(.caption, design: .rounded).weight(.heavy))
-                        .foregroundStyle(AppTheme.ink)
-                        .lineLimit(2)
-                    Spacer(minLength: 0)
-                }
-                .padding(10)
-                .background(AppTheme.elevated.opacity(0.86), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
-                .overlay {
-                    RoundedRectangle(cornerRadius: 14, style: .continuous)
-                        .stroke(AppTheme.softLine)
+            ForEach(HomeFeature.allCases) { feature in
+                if let destination = feature.destination {
+                    NavigationLink(value: destination) {
+                        HomeFeatureTile(feature: feature, isEnabled: true)
+                    }
+                    .buttonStyle(.plain)
+                } else {
+                    HomeFeatureTile(feature: feature, isEnabled: false)
+                        .accessibilityHint("Coming soon")
                 }
             }
         }
+        .navigationDestination(for: HomeFeatureDestination.self) { destination in
+            switch destination {
+            case .scan:
+                ScannerHostView()
+            case .search:
+                SearchView()
+            case .compare:
+                CompareView()
+            case .history:
+                HistoryView()
+            case .ingredients:
+                IngredientExplorerView()
+            case .pets:
+                PetsView()
+            }
+        }
+    }
+}
+
+private struct HomeFeatureTile: View {
+    let feature: HomeFeature
+    let isEnabled: Bool
+
+    var body: some View {
+        HStack(spacing: 8) {
+            Image(systemName: feature.icon)
+                .font(.caption.weight(.black))
+                .foregroundStyle(isEnabled ? AppTheme.primary : AppTheme.muted)
+                .frame(width: 24, height: 24)
+                .background((isEnabled ? AppTheme.techMint : AppTheme.surface).opacity(0.90), in: Circle())
+            Text(feature.rawValue)
+                .font(.system(.caption, design: .rounded).weight(.heavy))
+                .foregroundStyle(isEnabled ? AppTheme.ink : AppTheme.muted)
+                .lineLimit(2)
+                .minimumScaleFactor(0.82)
+            Spacer(minLength: 0)
+            if isEnabled {
+                Image(systemName: "chevron.right")
+                    .font(.caption2.weight(.black))
+                    .foregroundStyle(AppTheme.primary)
+            }
+        }
+        .padding(10)
+        .frame(maxWidth: .infinity, minHeight: 54, alignment: .leading)
+        .background((isEnabled ? AppTheme.elevated : AppTheme.surface).opacity(0.90), in: RoundedRectangle(cornerRadius: 14, style: .continuous))
+        .overlay {
+            RoundedRectangle(cornerRadius: 14, style: .continuous)
+                .stroke(AppTheme.softLine)
+        }
+        .opacity(isEnabled ? 1 : 0.72)
     }
 }
 
